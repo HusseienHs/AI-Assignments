@@ -1,3 +1,5 @@
+import time
+
 import numpy as np
 import minimax_tictacfive
 import alpha_beta_tictacfive, heuristic_alpha_beta_tictacfive, heuristics
@@ -97,7 +99,10 @@ def play_with_advanced_heuristics():
 
 
 if __name__ == '__main__':
-     play_with_minimax()
-    # play_with_alpha_beta()
+    start = time.time()
+    # play_with_minimax()
+    play_with_alpha_beta()
     # play_with_heuristics()
     # play_with_advanced_heuristics()
+    end = time.time()
+    print(f"Time taken to play tictacfive is {end - start}")
