@@ -36,7 +36,6 @@ def play_tictacfive(player_1, player_2, init_state):
         curr_player = players[player_turn]
     print_result(curr_state)
 
-
 def play_with_minimax():
     player_1 = player_agent(minimax_tictacfive.maximin)
     player_2 = player_agent(minimax_tictacfive.minimax)
@@ -104,9 +103,9 @@ def play_with_advanced_heuristics():
 
 if __name__ == '__main__':
     start = time.time()
-    # play_with_minimax()
-    # play_with_alpha_beta()
-    play_with_heuristics()
-    # play_with_advanced_heuristics()
+    #play_with_minimax()
+    #play_with_alpha_beta()
+    #play_with_heuristics()
+    play_with_advanced_heuristics()
     end = time.time()
     print(f"Time taken to play tictacfive is {end - start}")
