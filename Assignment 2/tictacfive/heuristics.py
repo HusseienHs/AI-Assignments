@@ -1,5 +1,5 @@
 def base_heuristic(curr_state):
-    def count_sequences(grid, player, seq_length, open_sides):
+    def count_sequences(grid, player, seq_length):
         rows, cols = grid.shape
         count = 0
         directions = [(0, 1), (1, 0), (1, 1), (1, -1)]
@@ -27,10 +27,7 @@ def base_heuristic(curr_state):
                                     right_open = False
 
                         if seq.count(player) == seq_length and seq.count(0) == 0:
-                            if open_sides == 1 and (left_open or right_open):
-                                count += 1
-                            elif open_sides == 2 and left_open and right_open:
-                                count += 1
+                            count +=1
 
         return count
 
@@ -40,12 +37,10 @@ def base_heuristic(curr_state):
 
     # Compute heuristics for both players
     p1_score = (
-        count_sequences(grid, player_1, 4, 1) +
-        count_sequences(grid, player_1, 3, 2)
+        count_sequences(grid, player_1, 4)
     )
     p2_score = (
-        count_sequences(grid, player_2, 4, 1) +
-        count_sequences(grid, player_2, 3, 2)
+        count_sequences(grid, player_2, 4)
     )
 
     # Return the difference in heuristics

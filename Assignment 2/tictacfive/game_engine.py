@@ -59,17 +59,17 @@ def play_with_alpha_beta():
 
 
 def play_with_heuristics():
-    # player1 win
+
     depth_player_1 = 3
     depth_player_2 = 3
 
     # try different depths, you can change the depth numbers, board size and locations
-    # player1 win
+
     # depth_player_1 = 4
     # depth_player_2 = 1
 
 
-    # draw
+
     # depth_player_1 = 1
     # depth_player_2 = 4
 
@@ -105,7 +105,7 @@ if __name__ == '__main__':
     start = time.time()
     #play_with_minimax()
     #play_with_alpha_beta()
-    #play_with_heuristics()
-    play_with_advanced_heuristics()
+    play_with_heuristics()
+    # play_with_advanced_heuristics()
     end = time.time()
     print(f"Time taken to play tictacfive is {end - start}")
