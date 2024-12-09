@@ -1,6 +1,5 @@
+import numpy as np
 def base_heuristic(curr_state):
-    import numpy as np
-
     def count_sequences(grid, player, seq_length, open_sides):
         rows, cols = grid.shape
         count = 0
@@ -26,9 +25,9 @@ def base_heuristic(curr_state):
                                     right_open = grid[nx, ny] == 0
                             else:
                                 if i == -1:
-                                    left_open = False
+                                    left_open = True
                                 elif i == seq_length:
-                                    right_open = False
+                                    right_open = True
 
                         # Validate sequence and count based on open sides
                         if sequence.count(player) == seq_length and sequence.count(0) == 0:
@@ -45,19 +44,19 @@ def base_heuristic(curr_state):
     player_2 = 2
 
     # Calculate scores based on sequences and open sides
-    p1_score = (
+    p1_moves = (
         count_sequences(grid, player_1, 4, 1) +  # Length 4 with one open side
         count_sequences(grid, player_1, 3, 2)    # Length 3 with two open sides
     )
-    p2_score = (
+    p2_moves = (
         count_sequences(grid, player_2, 4, 1) +  # Length 4 with one open side
         count_sequences(grid, player_2, 3, 2)    # Length 3 with two open sides
     )
 
-    # Calculate heuristic value as the difference between player scores
-    return p1_score + p2_score
+    # Return the difference in heuristic values
+    return p1_moves - p2_moves
 
-import numpy as np
+
 
 def advanced_heuristic(curr_state):
     def count_sequences(grid, player, seq_length, open_sides):

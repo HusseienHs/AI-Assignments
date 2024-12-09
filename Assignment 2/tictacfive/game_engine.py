@@ -108,4 +108,4 @@ if __name__ == '__main__':
     play_with_heuristics()
     # play_with_advanced_heuristics()
     end = time.time()
-    print(f"Time taken to play tictacfive is {end - start}")
+    print(f"Time taken to play tictacfive is {round(end - start, 4)} seconds")
