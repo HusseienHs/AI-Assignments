@@ -1,21 +1,25 @@
 def base_heuristic(curr_state):
-    def count_sequences(grid, player, seq_length):
+    import numpy as np
+
+    def count_sequences(grid, player, seq_length, open_sides):
         rows, cols = grid.shape
         count = 0
-        directions = [(0, 1), (1, 0), (1, 1), (1, -1)]
+        directions = [(0, 1), (1, 0), (1, 1), (1, -1)]  # Right, Down, Diagonal-right, Diagonal-left
 
-        for x in range(rows):
-            for y in range(cols):
-                if grid[x, y] == player:
-                    for dx, dy in directions:
-                        seq = []
-                        left_open, right_open = False, False
+        for dx, dy in directions:
+            for x in range(rows):
+                for y in range(cols):
+                    if grid[x, y] == player:
+                        left_open = False
+                        right_open = False
+                        sequence = []
 
+                        # Traverse in the direction of the sequence
                         for i in range(-1, seq_length + 1):
                             nx, ny = x + i * dx, y + i * dy
                             if 0 <= nx < rows and 0 <= ny < cols:
                                 if 0 <= i < seq_length:
-                                    seq.append(grid[nx, ny])
+                                    sequence.append(grid[nx, ny])
                                 elif i == -1:
                                     left_open = grid[nx, ny] == 0
                                 elif i == seq_length:
@@ -26,25 +30,32 @@ def base_heuristic(curr_state):
                                 elif i == seq_length:
                                     right_open = False
 
-                        if seq.count(player) == seq_length and seq.count(0) == 0:
-                            count +=1
+                        # Validate sequence and count based on open sides
+                        if sequence.count(player) == seq_length and sequence.count(0) == 0:
+                            if open_sides == 1 and (left_open or right_open):
+                                count += 1
+                            elif open_sides == 2 and left_open and right_open:
+                                count += 1
 
         return count
 
+    # Retrieve the grid state
     grid = curr_state.get_grid()
     player_1 = 1
     player_2 = 2
 
-    # Compute heuristics for both players
+    # Calculate scores based on sequences and open sides
     p1_score = (
-        count_sequences(grid, player_1, 4)
+        count_sequences(grid, player_1, 4, 1) +  # Length 4 with one open side
+        count_sequences(grid, player_1, 3, 2)    # Length 3 with two open sides
     )
     p2_score = (
-        count_sequences(grid, player_2, 4)
+        count_sequences(grid, player_2, 4, 1) +  # Length 4 with one open side
+        count_sequences(grid, player_2, 3, 2)    # Length 3 with two open sides
     )
 
-    # Return the difference in heuristics
-    return p1_score - p2_score
+    # Calculate heuristic value as the difference between player scores
+    return p1_score + p2_score
 
 import numpy as np
 
