@@ -10,8 +10,8 @@ def alphabeta_max_h(current_game, h, max_depth):
     :param max_depth: Maximum depth to search
     :return: Best score and corresponding move
     """
-    alpha = float('-inf')
-    beta = float('inf')
+    alpha = -math.inf
+    beta = math.inf
     return maximin(current_game, alpha, beta, max_depth, h)
 
 
@@ -24,8 +24,8 @@ def alphabeta_min_h(current_game, h, max_depth):
     :param max_depth: Maximum depth to search
     :return: Best score and corresponding move
     """
-    alpha = float('-inf')
-    beta = float('inf')
+    alpha = -math.inf
+    beta = math.inf
     return minimax(current_game, alpha, beta, max_depth, h)
 
 

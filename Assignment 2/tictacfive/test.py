@@ -250,17 +250,17 @@ class TestHeuristic(unittest.TestCase):
         ])
         self.run_test(grid, expected=0, description="Large Grid Edge Case: 3-in-a-row at the right edge")
 
-    def test_large_grid_edge_case_top(self):
+    def test_large_grid_edge_case(self):
         grid = np.array([
-            [2, 1, 1, 1, 1, 2, 0],
             [0, 0, 0, 0, 0, 0, 0],
+            [1, 1, 1, 1, 1, 0, 0],
             [0, 0, 2, 0, 0, 0, 0],
-            [0, 0, 0, 2, 0, 0, 0],
-            [0, 0, 0, 0, 2, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 2, 0],
             [0, 0, 0, 0, 0, 0, 2]
         ])
-        self.run_test(grid, expected=0, description="Large Grid Edge Case: 3-in-a-row at the top edge")
+        self.run_test(grid, expected=0, description="5  of ones isnt the same as 4")
 
     def test_large_grid_edge_case_bottom(self):
         grid = np.array([
