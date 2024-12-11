@@ -164,5 +164,150 @@ class TestHeuristic(unittest.TestCase):
         ])
         self.run_test(grid, expected=1, description="Test 15: Player 1 has a 3-in-a-row and Player 2 does not")
 
+    def test_edge_case_left(self):
+        grid = np.array([
+            [1, 1, 1, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0]
+        ])
+        self.run_test(grid, expected=0, description="Edge Case: 3-in-a-row at the left edge with open right side")
+
+    def test_edge_case_right(self):
+        grid = np.array([
+            [0, 0, 1, 1, 1],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0]
+        ])
+        self.run_test(grid, expected=0, description="Edge Case: 3-in-a-row at the right edge with open left side")
+
+    def test_off_by_one(self):
+        grid = np.array([
+            [1, 1, 0, 1, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0]
+        ])
+        self.run_test(grid, expected=0, description="Off-by-One: 3-in-a-row not completed due to a gap")
+
+    def test_closed_sequence(self):
+        grid = np.array([
+            [2, 2, 2, 2, 1],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0]
+        ])
+        self.run_test(grid, expected=0, description="Closed Sequence: 4-in-a-row blocked on both sides")
+
+    def test_16(self):
+        grid = np.array([
+            [2, 2, 2, 2, 0],
+            [1, 1, 1, 1, 2],
+            [1, 2, 1, 2, 2],
+            [1, 1, 0, 1, 2],
+            [2, 0, 0, 0, 2]
+        ])
+        self.run_test(grid, expected=-2, description="Closed Sequence: 4-in-a-row blocked on both sides")
+
+    def test_large_grid_7x7(self):
+        grid = np.array([
+            [0, 1, 1, 1, 0, 0, 0],
+            [0, 0, 2, 2, 2, 2, 0],
+            [1, 1, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 1, 1],
+            [2, 2, 2, 0, 1, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [1, 1, 1, 0, 0, 0, 0]
+        ])
+        self.run_test(grid, expected=0, description="Large Grid 7x7: Mixed sequences for both players")
+
+    def test_large_grid_edge_case_left(self):
+        grid = np.array([
+            [1, 1, 1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0]
+        ])
+        self.run_test(grid, expected=0, description="Large Grid Edge Case: 3-in-a-row at the left edge")
+
+    def test_large_grid_edge_case_right(self):
+        grid = np.array([
+            [0, 0, 0, 0, 1, 1, 1],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0]
+        ])
+        self.run_test(grid, expected=0, description="Large Grid Edge Case: 3-in-a-row at the right edge")
+
+    def test_large_grid_edge_case_top(self):
+        grid = np.array([
+            [2, 1, 1, 1, 1, 2, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 2, 0, 0, 0, 0],
+            [0, 0, 0, 2, 0, 0, 0],
+            [0, 0, 0, 0, 2, 0, 0],
+            [0, 0, 0, 0, 0, 2, 0],
+            [0, 0, 0, 0, 0, 0, 2]
+        ])
+        self.run_test(grid, expected=0, description="Large Grid Edge Case: 3-in-a-row at the top edge")
+
+    def test_large_grid_edge_case_bottom(self):
+        grid = np.array([
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [1, 1, 1, 0, 0, 0, 0]
+        ])
+        self.run_test(grid, expected=0, description="Large Grid Edge Case: 3-in-a-row at the bottom edge")
+
+    def test_large_grid_diagonal_edge(self):
+        grid = np.array([
+            [1, 0, 0, 0, 0, 0, 0],
+            [0, 1, 0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0, 0, 0],
+            [0, 0, 0, 1, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0]
+        ])
+        self.run_test(grid, expected=1, description="Large Grid Edge Case: Diagonal 4-in-a-row starting at the top-left corner")
+
+    def test_large_grid_blocked_edge(self):
+        grid = np.array([
+            [2, 2, 2, 2, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0]
+        ])
+        self.run_test(grid, expected=-1, description="Large Grid Edge Case: Player 2 has 4-in-a-row blocked on one side")
+
+    def test_large_grid_complex_edge(self):
+        grid = np.array([
+            [1, 1, 1, 0, 2, 2, 2],
+            [0, 0, 0, 0, 0, 0, 0],
+            [2, 0, 0, 0, 0, 1, 1],
+            [0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0]
+        ])
+        self.run_test(grid, expected=0, description="Large Grid Edge Case: Mixed sequences near edges")
 if __name__ == "__main__":
     unittest.main()
