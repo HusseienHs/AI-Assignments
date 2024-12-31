@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-from full_solution.value_iteration import ValueIteration
+from MDP.value_iteration import ValueIteration
 
 if __name__ == '__main__':
     policy, v = ValueIteration(0.5, 0.25, 0.25).value_iteration_for_gamblers()

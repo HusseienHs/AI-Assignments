@@ -3,9 +3,9 @@ from pathlib import Path
 import gymnasium as gym
 from gymnasium.envs.toy_text.frozen_lake import generate_random_map
 
-from full_solution.common import Params
-from full_solution.plotting import plot_q_values_map
-from full_solution.q_learning import Qlearning
+from MDP.common import Params
+from MDP.plotting import plot_q_values_map
+from MDP.q_learning import Qlearning
 
 
 params = Params(
