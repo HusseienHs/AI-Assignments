@@ -1,6 +1,4 @@
 import math
-
-
 def alphabeta_max_h(current_game, h, max_depth):
     """
     Alpha-beta pruning for the maximizing player with heuristic support.
