@@ -30,7 +30,6 @@ class ValueIteration:
             A vector containing the expected value of each action in THIS state.
             Its length equals to the number of actions.
         """
-        pass
 
         max_bet = min(current_capital, len(value_function) - 1 - current_capital)
         q_values = np.zeros(max_bet + 1)
