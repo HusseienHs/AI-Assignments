@@ -32,9 +32,48 @@ class ValueIteration:
         """
         pass
 
+        max_bet = min(current_capital, len(value_function) - 1 - current_capital)
+        q_values = np.zeros(max_bet + 1)
+
+        for bet in range(1, max_bet + 1):
+            win_state = current_capital + bet
+            lose_state = current_capital - bet
+
+            q_values[bet] = (
+                    self.prob_one * (rewards[win_state] + self.discount_factor * value_function[win_state]) +
+                    self.prob_three * (rewards[lose_state] + self.discount_factor * value_function[lose_state]) +
+                    self.prob_six * (rewards[current_capital] + self.discount_factor * value_function[current_capital])
+            )
+
+        return q_values
+
     def value_iteration_for_gamblers(self) -> Tuple[np.ndarray, np.ndarray]:
         """
 
         """
-        pass
-        # return policy, V
+        max_capital = 100
+        value_function = np.zeros(max_capital + 1)
+        rewards = np.zeros(max_capital + 1)
+        rewards[max_capital] = 1  # Reward for reaching the goal
+
+        policy = np.zeros(max_capital + 1, dtype=int)
+
+        while True:
+            delta = 0
+
+            for state in range(1, max_capital):
+                q_values = self.calculate_q_values(state, value_function, rewards)
+                best_action_value = np.max(q_values)
+
+                delta = max(delta, abs(best_action_value - value_function[state]))
+                value_function[state] = best_action_value
+
+            if delta < self.theta:
+                break
+
+        for state in range(1, max_capital):
+            q_values = self.calculate_q_values(state, value_function, rewards)
+            policy[state] = np.argmax(q_values)
+
+        return policy, value_function
+
