@@ -39,9 +39,9 @@ class ValueIteration:
             lose_state = current_capital - bet
 
             q_values[bet] = (
-                    self.prob_one * (rewards[win_state] + self.discount_factor * value_function[win_state]) +
-                    self.prob_three * (rewards[lose_state] + self.discount_factor * value_function[lose_state]) +
-                    self.prob_six * (rewards[current_capital] + self.discount_factor * value_function[current_capital])
+                    self.prob_one * (rewards[lose_state] + self.discount_factor * value_function[lose_state]) +
+                    self.prob_three * (rewards[current_capital] + self.discount_factor * value_function[current_capital]) +
+                    self.prob_six * (rewards[win_state] + self.discount_factor * value_function[win_state])
             )
 
         return q_values
